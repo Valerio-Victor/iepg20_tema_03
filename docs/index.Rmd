@@ -28,7 +28,7 @@ style_mono_light(base_color = '#1c5253',
 
 # CONFIGURAÇÃO PADRÃO CHUNK: ----
 knitr::opts_chunk$set(echo = F,
-                      cache = T,
+                      cache = F,
                       results = 'asis', 
                       warning = F, 
                       message = F, 
@@ -120,30 +120,47 @@ cambio_nominal_dolar <- BETS::BETSget(10813,
                                       data.frame = TRUE) 
 
 cambio_nominal_dolar_h <- cambio_nominal_dolar %>% 
-  dplyr::filter(date == lubridate::today())
+  dplyr::filter(date == dplyr::last(date))
 
 # Euro
 cambio_nominal_euro <- BETS::BETSget(21620,
                                      data.frame = TRUE)
 
 cambio_nominal_euro_h <- cambio_nominal_euro %>%
-  dplyr::filter(date == lubridate::today())
+  dplyr::filter(date == dplyr::last(date))
 
 # Iene
 cambio_nominal_iene <- BETS::BETSget(21622,
                                      data.frame = TRUE)
 
 cambio_nominal_iene_h <- cambio_nominal_iene %>%
-  dplyr::filter(date == lubridate::today())
+  dplyr::filter(date == dplyr::last(date))
 ```
 
 - São alguns exemplos de taxa de câmbio nominal:
 
-  - $e_{real/dólar} =$ `r scales::number(x = cambio_nominal_dolar_h$value, decimal.mark = ',', accuracy = 0.0001, suffix = ' R$/USD')`
+```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300}
 
-  - $e_{real/euro} =$ `r scales::number(x = cambio_nominal_euro_h$value, decimal.mark = ',', accuracy = 0.0001, suffix = ' R$/EUR')`
-  
-  - $e_{real/iene} =$ `r scales::number(x = cambio_nominal_iene_h$value, decimal.mark = ',', accuracy = 0.0001, suffix = ' R$/JPY')`
+dolar_nominal <- scales::number(x = cambio_nominal_dolar_h$value, 
+                             decimal.mark = ',', accuracy = 0.01)
+euro_nominal <- scales::number(x = cambio_nominal_euro_h$value, 
+                            decimal.mark = ',', accuracy = 0.01)
+iene_nominal <- scales::number(x = cambio_nominal_iene_h$value, 
+                            decimal.mark = ',', accuracy = 0.01)
+
+tab_cambio_real <- data.frame(
+  moedas = c('Real - Dólar','Real - Euro','Real - Iene'),
+  valor = c(dolar_nominal, euro_nominal, iene_nominal)
+)
+
+knitr::kable(tab_cambio_real, 
+             escape = FALSE,
+             format = 'html',
+             align = c('c', 'c'),
+             col.names = c('MOEDAS','VALORES')) %>%
+  kableExtra::kable_styling(bootstrap_options = 'striped', 
+                font_size = 24)
+```
  
 ---
 <div style="text-align: justify"> 
@@ -154,7 +171,7 @@ cambio_nominal_iene_h <- cambio_nominal_iene %>%
 análise pode ser contraintuitiva:
 
   - Se a taxa de câmbio nominal **aumenta**, diz-se que há uma 
-  **desvalorização cambial** (ou **valorização da moeda local - real**);
+  **desvalorização cambial** (ou **desvalorização da moeda local - real**);
   
   - Se a taxa de câmbio nominal **diminui** ao longo do tempo, diz-se que há uma 
   **valorização cambial** (ou **valorização da moeda local - real**).
@@ -372,30 +389,47 @@ cambio_real_dolar <- BETS::BETSget(11753,
                                    data.frame = TRUE) 
 
 cambio_real_dolar_h <- cambio_real_dolar %>% 
-  dplyr::filter(date == lubridate::today())
+  dplyr::filter(date == dplyr::last(date))
 
 # Euro
 cambio_real_euro <- BETS::BETSget(11772,
                                   data.frame = TRUE)
 
 cambio_real_euro_h <- cambio_real_euro %>%
-  dplyr::filter(date == lubridate::today())
+  dplyr::filter(date == dplyr::last(date))
 
 # Iene
 cambio_real_iene <- BETS::BETSget(11754,
                                   data.frame = TRUE)
 
 cambio_real_iene_h <- cambio_real_iene %>%
-  dplyr::filter(date == lubridate::today())
+  dplyr::filter(date == dplyr::last(date))
 ```
 
 - São alguns exemplos de taxa de câmbio real:
 
-  - $E_{real/dólar} =$ `r scales::number(x = cambio_nominal_dolar_h$value, decimal.mark = ',', accuracy = 0.0001)`
+```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300}
 
-  - $E_{real/euro} =$ `r scales::number(x = cambio_nominal_euro_h$value, decimal.mark = ',', accuracy = 0.0001)`
-  
-  - $E_{real/iene} =$ `r scales::number(x = cambio_nominal_iene_h$value, decimal.mark = ',', accuracy = 0.0001)`
+dolar_real <- scales::number(x = cambio_real_dolar_h$value, 
+                             decimal.mark = ',', accuracy = 0.01)
+euro_real <- scales::number(x = cambio_real_euro_h$value, 
+                            decimal.mark = ',', accuracy = 0.01)
+iene_real <- scales::number(x = cambio_real_iene_h$value, 
+                            decimal.mark = ',', accuracy = 0.01)
+
+tab_cambio_real <- data.frame(
+  moedas = c('Real - Dólar','Real - Euro','Real - Iene'),
+  valor = c(dolar_real, euro_real, iene_real)
+)
+
+knitr::kable(tab_cambio_real, 
+             escape = FALSE,
+             format = 'html',
+             align = c('c', 'c'),
+             col.names = c('MOEDAS','VALORES')) %>%
+  kableExtra::kable_styling(bootstrap_options = 'striped', 
+                font_size = 24)
+```
   
 ---
 ## O BRASIL EM PERSPECTIVA
