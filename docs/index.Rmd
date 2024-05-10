@@ -1,6 +1,6 @@
 ---
-title: 'TAXA DE CÂMBIO </br> (TEMA 03)'
-subtitle: 'IEPG20 - Introdução à Economia'
+title: 'TAXA DE CÂMBIO'
+subtitle: 'Introdução à Economia </br> (IEPG20)'
 author: 'Autor: Victor Valerio'
 date: 'Última atualização: `r format(Sys.Date(),"%d-%m-%Y")`'
 output:
@@ -28,7 +28,7 @@ style_mono_light(base_color = '#1c5253',
 
 # CONFIGURAÇÃO PADRÃO CHUNK: ----
 knitr::opts_chunk$set(echo = F,
-                      cache = F,
+                      cache = T,
                       results = 'asis', 
                       warning = F, 
                       message = F, 
@@ -338,9 +338,12 @@ name: real
  ---
 
 - A **Taxa de Câmbio Real (E)** corresponde a taxa que compara os preços de um 
-mesmo bem ou serviço entre países diferentes;
+mesmo bem ou serviço entre países diferentes. Para tanto, é utilizada a taxa de 
+câmbio nominal (e) e os índices de preços;
 
 - Pode ser utilizado para indicar ao consumidor onde o produto deve ser comprado!
+
+$$E = \frac{e \cdot 𝑷^∗}{P}$$
 
 ---
 <div style="text-align: justify"> 
@@ -380,6 +383,8 @@ serviço ou comprar no Brasil (em moeda local).
 ## TAXA DE CÂMBIO REAL
  ---
 
+- São alguns exemplos de taxa de câmbio real:
+
 ```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300}
 
 library(magrittr)
@@ -404,11 +409,6 @@ cambio_real_iene <- BETS::BETSget(11754,
 
 cambio_real_iene_h <- cambio_real_iene %>%
   dplyr::filter(date == dplyr::last(date))
-```
-
-- São alguns exemplos de taxa de câmbio real:
-
-```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300}
 
 dolar_real <- scales::number(x = cambio_real_dolar_h$value, 
                              decimal.mark = ',', accuracy = 0.01)
