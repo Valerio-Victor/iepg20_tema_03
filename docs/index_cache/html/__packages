@@ -2,3 +2,5 @@ xaringanthemer
 xaringanExtra
 magrittr
 RSQLite
+httr
+jsonlite
